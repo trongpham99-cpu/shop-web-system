@@ -1,0 +1,1 @@
+export const SERVER_API = 'http://localhost:3052/v1/api';
