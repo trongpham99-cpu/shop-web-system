@@ -1,12 +1,11 @@
 const express = require('express')
-const accessController = require('../../controllers/access.controller')
+const inventoryController = require('../../controllers/inventory.controller')
 const { asyncHandler } = require('../../helpers/asyncHandler')
 const { authentication } = require('../../auth/authUtils')
 const router = express.Router()
 
-router.post('/login', asyncHandler(accessController.login))
-router.post('/signup', asyncHandler(accessController.signUp))
-
 router.use(authentication)
+
+router.post('', asyncHandler(inventoryController.addStockToInventory))
 
 module.exports = router

@@ -1,9 +1,9 @@
 const { Schema, model } = require('mongoose');
 
-const DOCUMENT_NAME = 'shop'
-const COLLECTION_NAME = 'shops'
+const DOCUMENT_NAME = 'user'
+const COLLECTION_NAME = 'users'
 
-const shopSchema = new Schema({
+const userSchema = new Schema({
     name: {
         type: String,
         index: true,
@@ -15,6 +15,10 @@ const shopSchema = new Schema({
         required: true,
         trim: true
     },
+    address: {
+        type: String,
+        default: "unknown"
+    },
     password: {
         type: String,
         required: true,
@@ -22,19 +26,15 @@ const shopSchema = new Schema({
     status: {
         type: String,
         enum: ['active', 'inactive'],
-        default: 'inactive'
-    },
-    verify: {
-        type: Schema.Types.Boolean,
-        default: false
+        default: 'active'
     },
     roles: {
         type: Array,
-        default: []
+        default: ["user"]
     }
 }, {
     timestamps: true,
     collection: COLLECTION_NAME
 });
 
-module.exports = model(DOCUMENT_NAME, shopSchema);
+module.exports = model(DOCUMENT_NAME, userSchema);
