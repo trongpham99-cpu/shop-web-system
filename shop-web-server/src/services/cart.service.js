@@ -59,7 +59,7 @@ class CartService {
         const foundProduct = await getProductById(productId);
         if (!foundProduct) throw new NotFoundError('Product not found');
 
-        if (foundProduct.product_shop.toString() !== shop_order_ids[0]?.shopId) {
+        if (foundProduct.userId.toString() !== shop_order_ids[0]?.shopId) {
             throw new BadRequestError('Product do not belong to this shop');
         }
 

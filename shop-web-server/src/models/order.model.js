@@ -1,12 +1,13 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const DOCUMENT_NAME = 'order'
 const COLLECTION_NAME = 'orders'
 
 var orderSchema = new Schema({
     order_userId: {
-        type: Number,
+        type: Types.ObjectId,
         required: true,
+        ref: 'user'
     },
     order_checkout: {
         type: Object,

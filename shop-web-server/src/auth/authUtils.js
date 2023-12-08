@@ -33,6 +33,10 @@ const authentication = asyncHandler(async (req, res, next) => {
         const userDetail = await findUserById({ userId })
         if (!userDetail) throw new NotFoundError('Error: User not found !')
 
+        if (userDetail.status != 'active') {
+            throw new BadRequestError('Error: User is not active !')
+        }
+
         req.user = userDetail
         next()
     } catch (error) {

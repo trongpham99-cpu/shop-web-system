@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
     <div class="container">
@@ -13,15 +14,29 @@
                 <li [ngClass]="tabActive" class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
                 <li><a class="nav-link" routerLink="/shop">Shop</a></li>
                 <li><a class="nav-link" routerLink="/about-us">About us</a></li>
-                <li><a class="nav-link" routerLink="/service">Services</a></li>
+                <li><a class="nav-link" routerLink="/services">Services</a></li>
                 <li><a class="nav-link" routerLink="/blog">Blog</a></li>
-                <li><a class="nav-link" routerLink="/contact">Contact us</a></li>
+                <li *ngIf="user != null"><a class="nav-link" routerLink="/cart">Cart</a></li>
             </ul>
 
-            <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <ul *ngIf="user == null" class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                 <li><a class="nav-link" (click)="showDialog()"><img src="./assets/images/user.svg"></a></li>
                 <li><a class="nav-link" href="cart.html"><img src="./assets/images/cart.svg"></a></li>
             </ul>
+
+            <ul *ngIf="user != null" class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                <li>
+                    <a class="nav-link">
+                        {{user.email}}
+                    </a>
+                </li>
+                <li (click)="logout()" >
+                    <a class="nav-link">
+                        logout
+                    </a>
+                </li>
+            </ul>
+
         </div>
     </div>
 
@@ -54,7 +69,6 @@
                             </button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -140,7 +154,8 @@
     </div>
 </footer>
 
-<p-dialog header="Login" [draggable]="false" [resizable]="false" [(visible)]="visible" [style]="{width: '50vw'}" class="modal_login">
+<p-dialog header="Login" [draggable]="false" [resizable]="false" [(visible)]="visible" [style]="{width: '50vw'}"
+    class="modal_login">
     <input type="text" pInputText [(ngModel)]="userLogin.email" />
     <input type="password" pInputText [(ngModel)]="userLogin.password" />
     <p-button class="btn-submit" (click)="login()" label="Submit"></p-button>

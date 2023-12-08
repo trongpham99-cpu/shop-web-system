@@ -7,7 +7,7 @@ class ProductController {
             message: 'Create Product Success',
             metadata: await ProductService.createProduct(req.body.product_type, {
                 ...req.body,
-                product_shop: req.user.userId
+                userId: req.user._id
             })
         }).send(res)
     }
@@ -18,7 +18,7 @@ class ProductController {
             message: 'Update Product Success',
             metadata: await ProductService.updateProduct(req.body.product_type, req.params.id, {
                 ...req.body,
-                product_shop: req.user.userId
+                userId: req.user._id
             })
         }).send(res)
     }
@@ -28,7 +28,16 @@ class ProductController {
             message: 'Publish Product Success',
             metadata: await ProductService.publishProductByShop({
                 product_id: req.params.id,
-                product_shop: req.user.userId
+                userId: req.user._id
+            })
+        }).send(res)
+    }
+
+    publishAllProductByShop = async (req, res, next) => {
+        new SuccessResponse({
+            message: 'Publish All Product Success',
+            metadata: await ProductService.publishAllProductByShop({
+                userId: req.user._id
             })
         }).send(res)
     }
@@ -38,7 +47,7 @@ class ProductController {
             message: 'Unpublish Product Success',
             metadata: await ProductService.unpublishProductByShop({
                 product_id: req.params.id,
-                product_shop: req.user.userId
+                userId: req.user._id
             })
         }).send(res)
     }
@@ -48,7 +57,7 @@ class ProductController {
         new SuccessResponse({
             message: 'Get All Drafts Success',
             metadata: await ProductService.findAllDraftsForShop({
-                product_shop: req.user.userId,
+                userId: req.user._id,
             })
         }).send(res)
     }
@@ -57,7 +66,7 @@ class ProductController {
         new SuccessResponse({
             message: 'Get All Published Success',
             metadata: await ProductService.findAllPublishedForShop({
-                product_shop: req.user.userId,
+                userId: req.user._id,
             })
         }).send(res)
     }

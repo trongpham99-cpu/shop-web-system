@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
+router.use('/v1/api/upload', require('./upload'))
 router.use('/v1/api/inventory', require('./inventory'))
 router.use('/v1/api/checkout', require('./checkout'))
 router.use('/v1/api/cart', require('./cart'))

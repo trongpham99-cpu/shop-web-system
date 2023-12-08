@@ -4,6 +4,7 @@ const { default: helmet } = require('helmet')
 const compression = require('compression')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const path = require('path')
 require('dotenv').config()
 const app = express()
 
@@ -23,6 +24,8 @@ require('./dbs/init.mongo')
 
 //init routes
 app.use('/', require('./routes/index'))
+
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
 //handling error 
 app.use((req, res, next) => {

@@ -157,6 +157,58 @@ class CheckoutService {
     static async updateOrderStatusByShop() {
 
     }
+
+    static async getDetailOrder(id) {
+        const orderDetail = await order.findById(id);
+        return orderDetail;
+    }
+
+    static async getOrders({ filter }) {
+        const { status, fromDate, toDate } = filter;
+        const query = {};
+        if (status) {
+            query.order_status = status;
+        }
+
+        if (fromDate && toDate) {
+            query.createdAt = {
+                $gte: fromDate,
+                $lte: toDate
+            }
+        }
+
+        const orders = await order.find(query).sort({ createdAt: -1 });
+        return orders;
+    }
+
+    static async myOrder({ userId }) {
+        const orders = await order.find({ order_userId: userId }).sort({ createdAt: -1 });
+        return orders;
+    }
+
+    static async checkout({ carts, deliveryInformation, _id }) {
+        let totalPrice = 0;
+        carts.forEach((cart) => {
+            totalPrice += cart.price * cart.quantity;
+        });
+
+        const newOrder = {
+            order_userId: _id,
+            order_checkout: {
+                totalPrice: totalPrice,
+            },
+            order_shipping: {
+                ...deliveryInformation
+            },
+            order_payment: {},
+            order_products: carts,
+            order_trackingNumber: '#0000118052022',
+            order_status: 'pending'
+        }
+
+        const res = await order.create(newOrder);
+        return res;
+    }
 }
 
 module.exports = CheckoutService;

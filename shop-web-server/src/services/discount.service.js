@@ -74,7 +74,7 @@ class DiscountService {
             //get all product
             products = await findAllProducts({
                 filter: {
-                    product_shop: convertTypes(shopId),
+                    userId: convertTypes(shopId),
                     isPublished: true
                 },
                 limit: +limit,

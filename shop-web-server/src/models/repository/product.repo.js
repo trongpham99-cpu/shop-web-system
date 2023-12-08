@@ -19,6 +19,11 @@ const findAllProducts = async ({ limit, sort, page, filter, select }) => {
     return products;
 }
 
+const countFindAllProducts = async ({ filter }) => {
+    const count = await product.find(filter).countDocuments().exec();
+    return count;
+}
+
 const findProduct = async ({ product_id, unSelect }) => {
     const productFound = await product.findById(product_id)
         .select(getUnselectData(unSelect))
@@ -60,11 +65,11 @@ const searchProductByUser = async ({ keyword }) => {
     return result;
 }
 
-const publishProductByShop = async ({ product_id, product_shop }) => {
+const publishProductByShop = async ({ product_id, userId }) => {
     const foundProduct = await product.findOne(
         {
             _id: new Types.ObjectId(product_id),
-            product_shop: new Types.ObjectId(product_shop),
+            userId: new Types.ObjectId(userId),
             isDraft: true
         }
     ).lean().exec();
@@ -76,7 +81,7 @@ const publishProductByShop = async ({ product_id, product_shop }) => {
     const productUpdated = await product.findOneAndUpdate(
         {
             _id: new Types.ObjectId(product_id),
-            product_shop: new Types.ObjectId(product_shop),
+            userId: new Types.ObjectId(userId),
             isDraft: true
         },
         foundProduct,
@@ -86,11 +91,40 @@ const publishProductByShop = async ({ product_id, product_shop }) => {
     return productUpdated;
 }
 
-const unpublishProductByShop = async ({ product_id, product_shop }) => {
+const publishAllProductByShop = async ({ userId }) => {
+    const foundProducts = await product.find(
+        {
+            userId: new Types.ObjectId(userId),
+            isDraft: true,
+            isPublished: false
+        }
+    ).lean().exec();
+
+    if (!foundProducts) return null;
+
+    foundProducts.forEach(async (item) => {
+        item.isDraft = false;
+        item.isPublished = true;
+        await product.findByIdAndUpdate(
+            {
+                _id: new Types.ObjectId(item._id),
+                userId: new Types.ObjectId(userId),
+                isDraft: true,
+                isPublished: false
+            },
+            item,
+            { new: true }
+        ).lean().exec();
+    })
+
+    return foundProducts;
+}
+
+const unpublishProductByShop = async ({ product_id, userId }) => {
     const foundProduct = await product.findOne(
         {
             _id: new Types.ObjectId(product_id),
-            product_shop: new Types.ObjectId(product_shop),
+            userId: new Types.ObjectId(userId),
             isPublished: true
         }
     ).lean().exec();
@@ -102,7 +136,7 @@ const unpublishProductByShop = async ({ product_id, product_shop }) => {
     const productUpdated = await product.findOneAndUpdate(
         {
             _id: new Types.ObjectId(product_id),
-            product_shop: new Types.ObjectId(product_shop),
+            userId: new Types.ObjectId(userId),
             isPublished: true
         },
         foundProduct,
@@ -114,7 +148,7 @@ const unpublishProductByShop = async ({ product_id, product_shop }) => {
 
 const queryProduct = async ({ query, limit, skip }) => {
     return await product.find(query).
-        populate('product_shop', 'name email -_id').
+        populate('userId', 'name email -_id').
         sort({ createdAt: -1 }).
         skip(skip).
         limit(limit).
@@ -149,5 +183,7 @@ module.exports = {
     findProduct,
     updateProductById,
     getProductById,
-    checkProductByServer
+    checkProductByServer,
+    countFindAllProducts,
+    publishAllProductByShop
 }

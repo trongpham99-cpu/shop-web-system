@@ -1,3 +1,4 @@
 shop-web-client/node_modules
 shop-web-server/node_modules
+shop-web-client-admin/node_modules
 shop-web-server/.env

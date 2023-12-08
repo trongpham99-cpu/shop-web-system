@@ -9,6 +9,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { PaginatorModule } from 'primeng/paginator';
+import { SidebarModule } from 'primeng/sidebar';
+
 
 @NgModule({
   declarations: [
@@ -24,9 +29,12 @@ import { HttpClientModule } from '@angular/common/http';
     DialogModule,
     InputTextModule,
     TabMenuModule,
-    TabMenuModule
+    TabMenuModule,
+    ToastModule,
+    PaginatorModule,
+    SidebarModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

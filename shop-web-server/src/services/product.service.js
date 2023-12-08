@@ -1,6 +1,6 @@
 const { product, clothing, electronic } = require('../models/product.model');
 const { BadRequestError } = require('../core/error.response');
-const { findAllDraftsForShop, publishProductByShop, findAllPublishForShop, unpublishProductByShop, searchProductByUser, findAllProducts, findProduct, updateProductById } = require('../models/repository/product.repo');
+const { countFindAllProducts, findAllDraftsForShop, publishProductByShop, findAllPublishForShop, unpublishProductByShop, searchProductByUser, findAllProducts, findProduct, updateProductById, publishAllProductByShop } = require('../models/repository/product.repo');
 const { removeUndefinedObject, updateNestedObjectParser } = require('../utils');
 const { insertInventory } = require('../models/repository/inventory.repo');
 class ProductFactory {
@@ -28,22 +28,26 @@ class ProductFactory {
         }
     }
 
-    static async publishProductByShop({ product_id, product_shop }) {
-        return await publishProductByShop({ product_id, product_shop })
+    static async publishProductByShop({ product_id, userId }) {
+        return await publishProductByShop({ product_id, userId })
     }
 
-    static async unpublishProductByShop({ product_id, product_shop }) {
-        return await unpublishProductByShop({ product_id, product_shop })
+    static async publishAllProductByShop({ userId }) {
+        return await publishAllProductByShop({ userId })
+    }
+
+    static async unpublishProductByShop({ product_id, userId }) {
+        return await unpublishProductByShop({ product_id, userId })
     }
 
     //QUERY// 
-    static async findAllDraftsForShop({ product_shop, limit = 50, skip = 0 }) {
-        const query = { product_shop, isDraft: true };
+    static async findAllDraftsForShop({ userId, limit = 50, skip = 0 }) {
+        const query = { userId, isDraft: true };
         return await findAllDraftsForShop({ query, limit, skip });
     }
 
-    static async findAllPublishedForShop({ product_shop, limit = 50, skip = 0 }) {
-        const query = { product_shop, isPublished: true };
+    static async findAllPublishedForShop({ userId, limit = 50, skip = 0 }) {
+        const query = { userId, isPublished: true };
         return await findAllPublishForShop({ query, limit, skip });
     }
 
@@ -52,7 +56,13 @@ class ProductFactory {
     }
 
     static async findAllProducts({ limit = 50, sort = 'ctime', page = 1, filter = { isPublished: true } }) {
-        return await findAllProducts({ limit, sort, page, filter, select: ['product_name', 'product_price', 'product_thumb', 'product_shop'] });
+        let products = await findAllProducts({ limit, sort, page, filter, select: ['product_name', 'product_price', 'product_thumb'] });
+        let count = await countFindAllProducts({ filter });
+        return {
+            products,
+            currentPage: page,
+            totalDocuments: count,
+        }
     }
 
     static async findProduct({ product_id }) {
@@ -69,7 +79,7 @@ class Product {
             product_price,
             product_quantity,
             product_type,
-            product_shop,
+            userId,
             product_attributes
         }
     ) {
@@ -79,7 +89,7 @@ class Product {
         this.product_price = product_price;
         this.product_quantity = product_quantity;
         this.product_type = product_type;
-        this.product_shop = product_shop;
+        this.userId = userId;
         this.product_attributes = product_attributes;
     }
 
@@ -93,7 +103,7 @@ class Product {
             //add inventory
             await insertInventory({
                 productId: newProduct._id,
-                shopId: this.product_shop,
+                shopId: this.userId,
                 stock: this.product_quantity
             })
         }
@@ -115,7 +125,7 @@ class Clothing extends Product {
     async createProduct() {
         const newClothing = await clothing.create({
             ...this.product_attributes,
-            product_shop: this.product_shop
+            userId: this.userId
         });
         if (!newClothing) {
             throw new BadRequestError('Cannot create new clothing');
@@ -153,7 +163,7 @@ class Electronics extends Product {
     async createProduct() {
         const newElectronic = await electronic.create({
             ...this.product_attributes,
-            product_shop: this.product_shop
+            userId: this.userId
         });
         if (!newElectronic) {
             throw new BadRequestError('Cannot create new electronic');

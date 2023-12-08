@@ -31,9 +31,9 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
-    product_shop: {
+    userId: {
         type: Schema.Types.ObjectId,
-        ref: 'shop',
+        ref: 'user',
         required: true
     },
     product_attributes: {
@@ -93,9 +93,9 @@ const clothingSchema = new Schema({
         type: String,
         required: true
     },
-    product_shop: {
+    userId: {
         type: Schema.Types.ObjectId,
-        ref: 'shop',
+        ref: 'user',
         required: true
     },
 }, {
@@ -120,9 +120,9 @@ const electronicSchema = new Schema({
         type: String,
         required: true
     },
-    product_shop: {
+    userId: {
         type: Schema.Types.ObjectId,
-        ref: 'shop',
+        ref: 'user',
         required: true
     },
 }, {
