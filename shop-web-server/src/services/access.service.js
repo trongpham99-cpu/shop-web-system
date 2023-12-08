@@ -84,6 +84,26 @@ class AccessService {
 
         return null
     }
+
+    static getAllUser = async () => {
+        const users = await userModel.find().lean()
+        return users
+    }
+
+    static getUserById = async (userId) => {
+        const user = await userModel.findById(userId).lean()
+        return user
+    }
+
+    static updateUserById = async (userId, data) => {
+        const newUser = await userModel.findByIdAndUpdate(userId, data, { new: true }).lean()
+    }
+
+    static deleteUserById = async (userId) => {
+        const user = await userModel.findByIdAndDelete(userId).lean()
+        return user
+    }
+
 }
 
 module.exports = AccessService

@@ -21,5 +21,6 @@ router.patch('/:id', asyncHandler(productController.updateProduct))
 //query//
 router.get('/drafts/all', asyncHandler(productController.getAllDraftsForShop))
 router.get('/published/all', asyncHandler(productController.getAllPublishedForShop))
+router.get('/admin/all', asyncHandler(productController.getAllProductsForAdmin))
 
 module.exports = router

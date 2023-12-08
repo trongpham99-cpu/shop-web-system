@@ -62,6 +62,18 @@ class ProductController {
         }).send(res)
     }
 
+    getAllProductsForAdmin = async (req, res, next) => {
+        new SuccessResponse({
+            message: 'Get All Products Success',
+            metadata: await ProductService.getAllProductsForAdmin({
+                limit: req.query.limit,
+                sort: req.query.sort,
+                page: req.query.page,
+                filter: req.query.filter
+            })
+        }).send(res)
+    }
+
     getAllPublishedForShop = async (req, res, next) => {
         new SuccessResponse({
             message: 'Get All Published Success',

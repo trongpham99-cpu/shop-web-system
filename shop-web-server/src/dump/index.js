@@ -42,7 +42,7 @@ const postDate = async () => {
             body: JSON.stringify(p),
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTZlYmY3YjQxNjRmMzNkNDdkYzlmOWIiLCJpYXQiOjE3MDE4NDk3MTEsImV4cCI6MTcwMjAyMjUxMX0.GyD7dVpj3DY-qDAH2d4vOB7bAoZ2AH2-awtlVbYdNws'
+                'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTczMTUwNDkyY2JlYTVmMGQyNDNmYWQiLCJpYXQiOjE3MDIwNDIzMzMsImV4cCI6MTcwMjIxNTEzM30.qHwI_VELuXAVYA9SPYWVPAcjYQp2ZRrpdGVjra_PpRM'
             },
         })
 

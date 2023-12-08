@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { countConnect } = require('../helpers/check.connect')
 const { db: { mongodb: { host, port, name } } } = require('../configs/config.mongodb')
 
-const CONNECTION_STRING = `mongodb://${host}:${port}/${name}`
+const CONNECTION_STRING = `mongodb+srv://admin:admin@clusterductrong.9p6xigl.mongodb.net/shop-app`
 
 class Database {
     constructor() {

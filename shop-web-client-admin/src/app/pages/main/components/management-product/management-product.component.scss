@@ -1,0 +1,54 @@
+/* Add this CSS to your component's style file (e.g., your-component.css) */
+
+/* Style for the overall dialog container */
+.ui-dialog-content {
+    padding: 20px; /* Adjust the padding as needed */
+  }
+  
+  /* Style for the form group (each input group) */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Style for labels */
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Style for input and textarea */
+  input,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  
+  /* Style for the image thumbnail */
+  .img-thumbnail {
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  /* Style for the text-right class (for the buttons) */
+  .text-right {
+    text-align: right;
+    margin-top: 15px;
+  }
+  
+  /* Style for buttons */
+  .btn {
+    margin-right: 10px;
+  }
+  
+  /* Optional: Add some box shadow for a card-like appearance */
+  .ui-dialog-content {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  

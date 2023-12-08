@@ -24,14 +24,43 @@ export class ProductService {
   }
 
   createProduct(product: any) {
-    return this.http.post(`${SERVER_API}/product`, product);
+    let userLogin = localStorage.getItem('user_login') ? JSON.parse(localStorage.getItem('user_login') || '') : null;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `${userLogin.accessToken}`
+    }
+
+    return this.http.post(`${SERVER_API}/product`, product, { headers });
   }
 
-  updateProduct(product: any) {
-    return this.http.put(`${SERVER_API}/product`, product);
+  updateProduct(id: any, product: any) {
+
+    let userLogin = localStorage.getItem('user_login') ? JSON.parse(localStorage.getItem('user_login') || '') : null;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `${userLogin.accessToken}`
+    }
+
+    return this.http.put(`${SERVER_API}/product/${id}`, product, { headers });
   }
 
   deleteProduct(id: any) {
-    return this.http.delete(`${SERVER_API}/product/${id}`);
+    let userLogin = localStorage.getItem('user_login') ? JSON.parse(localStorage.getItem('user_login') || '') : null;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `${userLogin.accessToken}`
+    }
+
+    return this.http.delete(`${SERVER_API}/product/${id}`, { headers });
+  }
+
+  getAllForAdmin(params: any) {
+    let userLogin = localStorage.getItem('user_login') ? JSON.parse(localStorage.getItem('user_login') || '') : null;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `${userLogin.accessToken}`
+    }
+
+    return this.http.get(`${SERVER_API}/product/admin/all`, { headers, params });
   }
 }

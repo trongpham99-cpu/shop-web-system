@@ -51,6 +51,10 @@ class ProductFactory {
         return await findAllPublishForShop({ query, limit, skip });
     }
 
+    static async getAllProductsForAdmin({ limit = 50, skip = 0 }) {
+        return await findAllProducts({ limit, skip });
+    }
+
     static async searchProducts({ keyword }) {
         return await searchProductByUser({ keyword });
     }

@@ -1,0 +1,122 @@
+<p-toast></p-toast>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Products</h1>
+    <Button class="btn btn-primary" (click)="openCreateProductDialog()">Create</Button>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the <a target="_blank"
+            href="https://datatables.net">official DataTables documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th>createdAt</th>
+                            <th>updatedAt</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let prodcut of products">
+                            <td><img [src]="prodcut.product_thumb" alt="" width="100px" height="100px"></td>
+                            <td>{{prodcut.product_name}}</td>
+                            <td>{{conver(prodcut.product_price)}}</td>
+                            <td>{{prodcut.product_description}}</td>
+                            <td>{{prodcut.createdAt}}</td>
+                            <td>{{prodcut.updatedAt}}</td>
+                            <td>
+                                <button class="btn btn-primary"
+                                    (click)="editProduct(prodcut._id, prodcut)">Edit</button>
+                                <button class="btn btn-danger" (click)="deleteProduct(prodcut)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<p-dialog header="Product Details" [(visible)]="visible" [style]="{ width: '50vw' }" (onHide)="resetSelectedProduct()">
+    <div *ngIf="selectedProduct">
+        <div class="form-group">
+            <label for="productImage">Image:</label>
+            <img [src]="selectedProduct.product_thumb" alt="Product Image" class="img-thumbnail">
+        </div>
+
+        <div class="form-group">
+            <label for="productName">Name:</label>
+            <input type="text" id="productName" class="form-control" [(ngModel)]="selectedProduct.product_name"
+                disabled>
+        </div>
+
+        <div class="form-group">
+            <label for="productPrice">Price:</label>
+            <input type="number" id="productPrice" class="form-control" [(ngModel)]="selectedProduct.product_price">
+        </div>
+
+        <div class="form-group">
+            <label for="productDescription">Description:</label>
+            <textarea id="productDescription" class="form-control"
+                [(ngModel)]="selectedProduct.product_description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="createdAt">Created At:</label>
+            <input type="text" id="createdAt" class="form-control" [(ngModel)]="selectedProduct.createdAt" disabled>
+        </div>
+
+        <div class="form-group">
+            <label for="updatedAt">Updated At:</label>
+            <input type="text" id="updatedAt" class="form-control" [(ngModel)]="selectedProduct.updatedAt" disabled>
+        </div>
+
+        <div class="text-right">
+            <button class="btn btn-primary" (click)="updateProduct()">Update</button>
+            <button class="btn btn-secondary" (click)="resetSelectedProduct()">Cancel</button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog header="Create Product" [(visible)]="createProductDialogVisible" [style]="{ width: '50vw' }"
+    (onHide)="resetCreateProductForm()">
+    <div>
+        <div class="form-group">
+            <label for="createProductName">Name:</label>
+            <input type="text" id="createProductName" class="form-control" [(ngModel)]="newProduct.product_name">
+        </div>
+
+        <div class="form-group">
+            <label for="createProductPrice">Price:</label>
+            <input type="number" id="createProductPrice" class="form-control" [(ngModel)]="newProduct.product_price">
+        </div>
+
+        <div class="form-group">
+            <label for="createProductDescription">Description:</label>
+            <textarea id="createProductDescription" class="form-control"
+                [(ngModel)]="newProduct.product_description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="createProductImage">Image:</label>
+            <input type="file" id="createProductImage" class="form-control" (change)="handleImageChange($event)">
+        </div>
+
+        <div class="text-right">
+            <button class="btn btn-primary" (click)="createProduct()">Create</button>
+            <button class="btn btn-secondary" (click)="resetCreateProductForm()">Cancel</button>
+        </div>
+    </div>
+</p-dialog>

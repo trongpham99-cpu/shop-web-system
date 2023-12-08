@@ -20,4 +20,14 @@ export class OrderService {
 
     return this.http.post(`${SERVER_API}/checkout`, data, { headers });
   }
+
+  getAllOrder() {
+    let userLogin = localStorage.getItem('user_login') ? JSON.parse(localStorage.getItem('user_login') || '') : null;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `${userLogin.accessToken}`
+    }
+
+    return this.http.get(`${SERVER_API}/checkout/orders`, { headers });
+  }
 }

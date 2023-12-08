@@ -1,0 +1,102 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Orders</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the <a target="_blank"
+            href="https://datatables.net">official DataTables documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Note</th>
+                            <th>Status</th>
+                            <th>createdAt</th>
+                            <th>updatedAt</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of orders">
+                            <td>{{order.order_shipping.fullName}}</td>
+                            <td>{{order.order_shipping.address}}</td>
+                            <td>{{order.order_shipping.phoneNumber}}</td>
+                            <td>{{order.order_shipping.note}}</td>
+                            <td>{{order.order_status}}</td>
+                            <td>{{order.createdAt}}</td>
+                            <td>{{order.updatedAt}}</td>
+                            <td>
+                                <button class="btn btn-primary" (click)="viewOrder(order)">View</button>
+                                <button class="btn btn-primary" (click)="editOrder(order._id, order)">Edit</button>
+                                <button class="btn btn-danger" (click)="deleteOrder(order)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details Dialog -->
+    <p-dialog header="Order Details" [(visible)]="orderDialogVisible" [style]="{ width: '50vw' }"
+        (onHide)="resetSelectedOrder()">
+        <div *ngIf="selectedOrder">
+            <div class="form-group">
+                <label for="orderFullName">Name:</label>
+                <input type="text" id="orderFullName" class="form-control"
+                    [(ngModel)]="selectedOrder.order_shipping.fullName" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="orderAddress">Address:</label>
+                <textarea id="orderAddress" class="form-control" [(ngModel)]="selectedOrder.order_shipping.address"
+                    disabled></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="orderPhoneNumber">Phone:</label>
+                <input type="text" id="orderPhoneNumber" class="form-control"
+                    [(ngModel)]="selectedOrder.order_shipping.phoneNumber" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="orderNote">Note:</label>
+                <textarea id="orderNote" class="form-control" [(ngModel)]="selectedOrder.order_shipping.note"
+                    disabled></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="orderStatus">Status:</label>
+                <input type="text" id="orderStatus" class="form-control" [(ngModel)]="selectedOrder.order_status"
+                    disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="orderCreatedAt">Created At:</label>
+                <input type="text" id="orderCreatedAt" class="form-control" [(ngModel)]="selectedOrder.createdAt"
+                    disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="orderUpdatedAt">Updated At:</label>
+                <input type="text" id="orderUpdatedAt" class="form-control" [(ngModel)]="selectedOrder.updatedAt"
+                    disabled>
+            </div>
+
+            <div class="text-right">
+                <button class="btn btn-secondary" (click)="resetSelectedOrder()">Close</button>
+            </div>
+        </div>
+    </p-dialog>
+
+</div>

@@ -163,9 +163,14 @@ class CheckoutService {
         return orderDetail;
     }
 
-    static async getOrders({ filter }) {
+    static async getOrders({ filter = {
+        status: '',
+        fromDate: '',
+        toDate: ''
+    } }) {
         const { status, fromDate, toDate } = filter;
         const query = {};
+
         if (status) {
             query.order_status = status;
         }
@@ -177,7 +182,7 @@ class CheckoutService {
             }
         }
 
-        const orders = await order.find(query).sort({ createdAt: -1 });
+        const orders = await order.find(query).sort({ createdAt: -1 }).populate('order_userId');
         return orders;
     }
 

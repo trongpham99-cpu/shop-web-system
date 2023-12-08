@@ -33,6 +33,12 @@ export class LoginComponent implements OnInit {
 
           localStorage.setItem('user_login', JSON.stringify(userLogin));
           window.location.href = '/';
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'You are not admin'
+          });
         }
       },
       (err) => {
