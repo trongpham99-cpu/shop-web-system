@@ -30,7 +30,7 @@
                         {{user.email}}
                     </a>
                 </li>
-                <li (click)="logout()" >
+                <li (click)="logout()">
                     <a class="nav-link">
                         logout
                     </a>
@@ -158,5 +158,17 @@
     class="modal_login">
     <input type="text" pInputText [(ngModel)]="userLogin.email" />
     <input type="password" pInputText [(ngModel)]="userLogin.password" />
-    <p-button class="btn-submit" (click)="login()" label="Submit"></p-button>
+    <div class="d-flex justify-content-between">
+        <p-button class="btn-submit" (click)="login()" label="Login"></p-button>
+        <p-button class="btn-submit" (click)="openRegisterDialog()" label="Register"></p-button>
+    </div>
+
+</p-dialog>
+
+<p-dialog header="Register" [draggable]="false" [resizable]="false" [(visible)]="registerDialogVisible"
+    [style]="{width: '50vw'}" class="modal_register">
+    <input type="text" pInputText [(ngModel)]="userRegistration.email" placeholder="Email" />
+    <input type="password" pInputText [(ngModel)]="userRegistration.password" placeholder="Password" />
+    <input type="text" pInputText [(ngModel)]="userRegistration.address" placeholder="Address" />
+    <p-button class="btn-submit" (click)="register()" label="Register"></p-button>
 </p-dialog>

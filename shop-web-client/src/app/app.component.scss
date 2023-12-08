@@ -1,13 +1,29 @@
+/* Style for Login Form */
 .modal_login {
-    input {
-        width: 100%;
-        margin-top: 10px;
-    }
+    /* Add any specific styles for the login dialog */
+}
 
-    .btn-submit {
-        width: 100%;
-        margin-top: 20px;
-    }
+.modal_login input {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+/* Style for Register Form */
+.modal_register {
+    /* Add any specific styles for the register dialog */
+}
+
+.modal_register input {
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 /* Style for the cart item container */

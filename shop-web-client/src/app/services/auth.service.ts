@@ -16,6 +16,6 @@ export class AuthService {
   }
 
   register(userRegister: any) {
-    return this.http.post(`${SERVER_API}`, userRegister);
+    return this.http.post(`${SERVER_API}/signup`, userRegister);
   }
 }

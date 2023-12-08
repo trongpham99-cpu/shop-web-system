@@ -71,4 +71,30 @@ export class AppComponent implements OnInit {
       window.location.reload();
     }, 1000);
   }
+
+  registerDialogVisible: boolean = false; // For register dialog
+
+
+  userRegistration = {
+    address: '',
+    email: '',
+    password: ''
+  };
+
+  register() {
+    this.authService.register(this.userRegistration).subscribe((res: any) => {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Register success' });
+      this.registerDialogVisible = false;
+    }, (err: any) => {
+      const { error } = err;
+      const { message } = error;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+    });
+  }
+
+  openRegisterDialog() {
+    this.registerDialogVisible = true;
+    this.visible = false;
+  }
+
 }
