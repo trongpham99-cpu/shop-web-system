@@ -1,0 +1,99 @@
+/* Profile Section Styles */
+.profile-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+}
+
+.profile-section h2 {
+    color: #343a40;
+}
+
+.user-details {
+    margin-top: 20px;
+}
+
+.user-details p {
+    font-size: 18px;
+    color: #495057;
+}
+
+.profile-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Order History Section Styles */
+.order-history-section {
+    background-color: #ffffff;
+    padding: 50px 0;
+}
+
+.order-history-section h2 {
+    color: #343a40;
+}
+
+.order-list {
+    margin-top: 20px;
+}
+
+.order-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.order-item p {
+    margin: 0;
+    font-size: 16px;
+    color: #495057;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+
+    .user-details p,
+    .order-item p {
+        font-size: 16px;
+    }
+}
+
+/* Add this CSS to your styles file */
+
+.p-dialog-order-details {
+    font-family: 'Arial', sans-serif;
+}
+
+.p-dialog-order-details .ui-dialog-titlebar {
+    background-color: #007bff;
+    /* Header background color */
+    color: #fff;
+    /* Header text color */
+}
+
+.p-dialog-order-details .ui-dialog-content {
+    padding: 20px;
+}
+
+.p-dialog-order-details h4 {
+    color: #333;
+    /* Heading color */
+    margin-top: 10px;
+}
+
+.p-dialog-order-details p {
+    margin-bottom: 10px;
+}
+
+.p-dialog-order-details img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+/* You can customize these styles further based on your design */

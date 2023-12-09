@@ -99,7 +99,8 @@ class ProductController {
                 limit: req.query.limit,
                 sort: req.query.sort,
                 page: req.query.page,
-                filter: req.query.filter
+                filter: req.query.filter,
+                keyword: req.query.keyword
             })
         }).send(res)
     }

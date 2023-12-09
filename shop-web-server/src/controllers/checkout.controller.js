@@ -26,7 +26,7 @@ class checkoutController {
     myOrder = async (req, res, next) => {
         new SuccessResponse({
             message: 'My order success',
-            metadata: await CheckoutService.myOrder(req.user)
+            metadata: await CheckoutService.myOrder({ userId: req.user._id })
         }).send(res)
     }
 

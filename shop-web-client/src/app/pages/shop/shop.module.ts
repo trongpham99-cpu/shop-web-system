@@ -5,6 +5,7 @@ import { ShopRoutingModule } from './shop-routing.module';
 import { MainShopComponent } from './components/main-shop/main-shop.component';
 import { ToastModule } from 'primeng/toast';
 import { PaginatorModule } from 'primeng/paginator';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { PaginatorModule } from 'primeng/paginator';
     ShopRoutingModule,
     ToastModule,
     PaginatorModule,
+    InputTextModule
   ],
 })
 export class ShopModule { }

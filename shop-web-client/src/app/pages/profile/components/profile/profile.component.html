@@ -1,0 +1,63 @@
+<!-- User Profile Section -->
+<section class="profile-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>User Profile</h2>
+                <div class="user-details">
+                    <p><strong>Email:</strong> {{this.profile?.email}}</p>
+                    <p><strong>Address:</strong> {{this.profile?.address}}</p>
+                    <p><strong>Created At:</strong> {{this.profile?.createdAt}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Order History Section -->
+<section class="order-history-section">
+    <div class="container">
+        <h2>Order History</h2>
+        <div class="order-list">
+            <!-- Display a list of user's orders with details -->
+            <div *ngFor="let order of orders" class="order-item">
+                <span (click)="showOrderDialog(order)">
+                    <p><strong>Order ID:</strong> {{order._id}}</p>
+                    <p><strong>Order Date:</strong> {{order.createdAt}}</p>
+                    <p><strong>Order Status:</strong> {{order.order_status}}</p>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Order Detail Dialog -->
+<p-dialog header="Order Details" [(visible)]="orderDialogVisible" [style]="{ width: '60vw' }">
+    <ng-container *ngIf="selectedOrder">
+        <!-- Display order details here -->
+        <div>
+            <p><strong>Order ID:</strong> {{ selectedOrder._id }}</p>
+            <p><strong>Date:</strong> {{ selectedOrder.createdAt | date: 'medium' }}</p>
+            <p><strong>Total Price:</strong> {{ selectedOrder.order_checkout.totalPrice | currency }}</p>
+
+            <!-- Display shipping details -->
+            <h4>Shipping Details</h4>
+            <p><strong>Full Name:</strong> {{ selectedOrder.order_shipping.fullName }}</p>
+            <p><strong>Phone Number:</strong> {{ selectedOrder.order_shipping.phoneNumber }}</p>
+            <p><strong>Address:</strong> {{ selectedOrder.order_shipping.address }}</p>
+            <p><strong>Note:</strong> {{ selectedOrder.order_shipping.note }}</p>
+
+            <!-- Display ordered products -->
+            <h4>Ordered Products</h4>
+            <div *ngFor="let product of selectedOrder.order_products">
+                <div>
+                    <img [src]="product.product_thumb" alt="{{ product.product_name }}"
+                        style="max-width: 100px; max-height: 100px;">
+                </div>
+                <p><strong>{{ product.product_name }}</strong></p>
+                <p><strong>Price:</strong> {{ convertPrice(product.product_price) | currency }}</p>
+                <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+            </div>
+        </div>
+    </ng-container>
+</p-dialog>

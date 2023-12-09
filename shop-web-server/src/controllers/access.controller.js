@@ -23,6 +23,13 @@ class AccessController {
         }).send(res)
     }
 
+    getMyProfile = async (req, res, next) => {
+        new OK({
+            message: 'Get My Profile Success',
+            metadata: await AccessService.getUserById(req.user._id)
+        }).send(res)
+    }
+
     getUser = async (req, res, next) => {
         new OK({
             message: 'Get User Success',

@@ -18,6 +18,7 @@ export class MainShopComponent implements OnInit {
   first: number = 1;
   rows: number = 8;
   totalRecords: number = 100;
+  keyword: string = '';
 
   ngOnInit(): void {
     this.getListProduct();
@@ -67,6 +68,12 @@ export class MainShopComponent implements OnInit {
 
   convertPriceVNDToUSD(price: number) {
     return (price / 23000).toFixed(2);
+  }
+
+  search() {
+    this.getListProduct({
+      keyword: this.keyword,
+    });
   }
 
 }

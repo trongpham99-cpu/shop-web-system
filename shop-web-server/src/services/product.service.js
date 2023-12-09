@@ -59,8 +59,8 @@ class ProductFactory {
         return await searchProductByUser({ keyword });
     }
 
-    static async findAllProducts({ limit = 50, sort = 'ctime', page = 1, filter = { isPublished: true } }) {
-        let products = await findAllProducts({ limit, sort, page, filter, select: ['product_name', 'product_price', 'product_thumb'] });
+    static async findAllProducts({ limit = 50, sort = 'ctime', page = 1, filter = { isPublished: true }, keyword = null }) {
+        let products = await findAllProducts({ limit, sort, page, keyword, filter, select: ['product_name', 'product_price', 'product_thumb'] });
         let count = await countFindAllProducts({ filter });
         return {
             products,

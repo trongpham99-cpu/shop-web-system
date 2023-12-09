@@ -18,4 +18,15 @@ export class AuthService {
   register(userRegister: any) {
     return this.http.post(`${SERVER_API}/signup`, userRegister);
   }
+
+  getProfile() {
+    let userLogin = localStorage.getItem('user_login') ? JSON.parse(localStorage.getItem('user_login') || '') : null;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `${userLogin.accessToken}`
+    }
+
+    return this.http.get(`${SERVER_API}/get-my-profile`, { headers });
+  }
+
 }

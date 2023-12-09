@@ -13,5 +13,6 @@ router.put('/users/:id', asyncHandler(accessController.updateUser))
 router.delete('/users/:id', asyncHandler(accessController.deleteUser))
 
 router.use(authentication)
+router.get('/get-my-profile', asyncHandler(accessController.getMyProfile))
 
 module.exports = router

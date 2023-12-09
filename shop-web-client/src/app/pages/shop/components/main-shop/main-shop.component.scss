@@ -1,0 +1,32 @@
+/* CSS for Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    /* Adjust the margin as needed */
+}
+
+.search-bar input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-bar button {
+    background-color: #007bff;
+    /* Change the background color as needed */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+    /* Adjust the margin as needed */
+    cursor: pointer;
+}
+
+/* Optional: Style the search button hover effect */
+.search-bar button:hover {
+    background-color: #0056b3;
+    /* Change the hover background color as needed */
+}

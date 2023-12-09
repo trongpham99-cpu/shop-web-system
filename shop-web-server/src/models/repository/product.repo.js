@@ -5,7 +5,21 @@ const findAllDraftsForShop = async ({ query, limit, skip }) => {
     return await queryProduct({ query, limit, skip });
 }
 
-const findAllProducts = async ({ limit, sort, page, filter, select }) => {
+const findAllProducts = async ({ limit, keyword, sort, page, filter, select }) => {
+    filter = {
+        ...filter,
+        isPublished: true,
+    }
+    if (keyword) {
+        const regexSearch = new RegExp(keyword);
+        filter = {
+            ...filter,
+            $text: {
+                $search: regexSearch
+            },
+        }
+    }
+
     const skip = (page - 1) * limit;
     const sortBy = sort === 'ctime' ? { _id: -1 } : { _id: 1 };
     const products = await product.find(filter)

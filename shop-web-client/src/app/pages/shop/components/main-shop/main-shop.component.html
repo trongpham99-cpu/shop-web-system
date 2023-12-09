@@ -14,10 +14,15 @@
     </div>
 </div>
 <!-- End Hero Section -->
-
 <div class="untree_co-section product-section before-footer-section">
     <div class="container">
         <div class="row">
+            <div class="search-bar">
+                <input type="text" placeholder="Please enter product name" [(ngModel)]="keyword" class="search-input">
+                <button (click)="search()" class="search-button">
+                    Search
+                </button>
+            </div>
             <div *ngFor="let product of products" class="col-12 col-md-4 col-lg-3 mb-5">
                 <a class="product-item">
                     <img [src]="product.product_thumb" class="img-fluid product-thumbnail">
