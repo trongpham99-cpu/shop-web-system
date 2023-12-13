@@ -16,11 +16,14 @@ router.post('', upload.single('file'), asyncHandler(productController.createProd
 router.post('/publish/:id', asyncHandler(productController.publishProductByShop))
 router.post('/publish-all', asyncHandler(productController.publishAllProductByShop))
 router.post('/unpublish/:id', asyncHandler(productController.unpublishProductByShop))
+router.post('/:id/image', upload.single('file'), asyncHandler(productController.uploadImage))
 router.patch('/:id', asyncHandler(productController.updateProduct))
 
 //query//
 router.get('/drafts/all', asyncHandler(productController.getAllDraftsForShop))
 router.get('/published/all', asyncHandler(productController.getAllPublishedForShop))
 router.get('/admin/all', asyncHandler(productController.getAllProductsForAdmin))
+
+router.delete('/:id', asyncHandler(productController.deleteProduct))
 
 module.exports = router

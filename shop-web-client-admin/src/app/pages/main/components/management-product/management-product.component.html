@@ -1,4 +1,5 @@
 <p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -81,6 +82,12 @@
         <div class="form-group">
             <label for="updatedAt">Updated At:</label>
             <input type="text" id="updatedAt" class="form-control" [(ngModel)]="selectedProduct.updatedAt" disabled>
+        </div>
+
+        <!-- upload image -->
+        <div class="form-group">
+            <label for="productImage">Image:</label>
+            <input type="file" id="productImage" class="form-control" (change)="handleImageChange($event)">
         </div>
 
         <div class="text-right">

@@ -37,8 +37,6 @@
                             <td>{{order.updatedAt}}</td>
                             <td>
                                 <button class="btn btn-primary" (click)="viewOrder(order)">View</button>
-                                <button class="btn btn-primary" (click)="editOrder(order._id, order)">Edit</button>
-                                <button class="btn btn-danger" (click)="deleteOrder(order)">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -77,8 +75,12 @@
 
             <div class="form-group">
                 <label for="orderStatus">Status:</label>
-                <input type="text" id="orderStatus" class="form-control" [(ngModel)]="selectedOrder.order_status"
-                    disabled>
+                <select class="form-control" id="orderStatus" [(ngModel)]="selectedOrder.order_status">
+                    <option value="pending">pending</option>
+                    <option value="shipping">shipping</option>
+                    <option value="completed">completed</option>
+                    <option value="cancelled">cancelled</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -93,7 +95,9 @@
                     disabled>
             </div>
 
-            <div class="text-right">
+            <div style="display: flex; gap: 10px">
+                <button class="btn btn-primary"
+                    (click)="updateOrderStatus(selectedOrder._id, selectedOrder)">Update</button>
                 <button class="btn btn-secondary" (click)="resetSelectedOrder()">Close</button>
             </div>
         </div>

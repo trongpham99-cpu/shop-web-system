@@ -53,6 +53,14 @@ export class ManagementOrderComponent implements OnInit {
 
   resetSelectedOrder = () => {
     this.selectedOrder = null;
+    this.orderDialogVisible = false;
+  }
+
+  updateOrderStatus = (id: any, status: any) => {
+    this.orderService.updateOrderStatus(id, status).subscribe((res: any) => {
+      console.log(res);
+      this.getAllOrder();
+    })
   }
 
 }

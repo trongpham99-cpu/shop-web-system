@@ -1,15 +1,15 @@
 const ProductService = require('../services/product.service')
 const { SuccessResponse } = require('../core/success.response')
+const { uploadSingleImage } = require('../services/cloud_dinary.service');
 
 class ProductController {
     createProduct = async (req, res, next) => {
         const file = req.file
-        const fileURL = `http://localhost:${process.env.PORT}/public/images/${file.filename}`
-
+        const resFileURL = await uploadSingleImage(file.filename)
         const requestPayload = {
             ...req.body,
             userId: req.user._id,
-            product_thumb: fileURL,
+            product_thumb: resFileURL.url,
             product_attributes: {
                 "brand": "Levis",
                 "size": "M",
@@ -27,7 +27,8 @@ class ProductController {
     //PUT//
     updateProduct = async (req, res, next) => {
         const file = req.file
-        const fileURL = `http://localhost:${process.env.PORT}/public/images/${file.filename}`
+        const resFileURL = await uploadSingleImage(file.filename)
+        const fileURL = resFileURL.url
 
         const requestPayload = {
             ...req.body,
@@ -73,6 +74,20 @@ class ProductController {
         }).send(res)
     }
 
+    uploadImage = async (req, res, next) => {
+        const file = req.file
+        const fileURL = `http://localhost:${process.env.PORT}/public/images/${file.filename}`
+
+        new SuccessResponse({
+            message: 'Upload Image Success',
+            metadata: await ProductService.uploadImage({
+                product_id: req.params.id,
+                userId: req.user._id,
+                product_thumb: fileURL
+            })
+        }).send(res)
+    }
+
     //QUERY//
     getAllDraftsForShop = async (req, res, next) => {
         new SuccessResponse({
@@ -91,6 +106,15 @@ class ProductController {
                 sort: req.query.sort,
                 page: req.query.page,
                 filter: req.query.filter
+            })
+        }).send(res)
+    }
+
+    deleteProduct = async (req, res, next) => {
+        new SuccessResponse({
+            message: 'Delete Product Success',
+            metadata: await ProductService.deleteProduct({
+                product_id: req.params.id,
             })
         }).send(res)
     }

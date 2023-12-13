@@ -30,4 +30,14 @@ export class OrderService {
 
     return this.http.get(`${SERVER_API}/checkout/orders`, { headers });
   }
+
+  updateOrderStatus = (id: any, status: any) => {
+    let userLogin = localStorage.getItem('user_login') ? JSON.parse(localStorage.getItem('user_login') || '') : null;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `${userLogin.accessToken}`
+    }
+
+    return this.http.put(`${SERVER_API}/checkout/orders/${id}`, { status }, { headers });
+  }
 }

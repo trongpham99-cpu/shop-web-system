@@ -42,15 +42,23 @@ export class ManagementProductComponent implements OnInit {
     }
   }
 
+  handleUpdateImageChange(id: any, event: any) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      this.prodcutService.updateImageProduct(id, file).subscribe((res: any) => {
+        console.log(res);
+      })
+    }
+  }
+
   createProduct() {
     // Perform the logic to create the new product, including uploading the image
     // You can send the image file (this.newProduct.product_image) along with other product details
     // Make an API call or perform other actions
     // Reset the form and close the dialog after successful creation
     this.prodcutService.createProduct(this.newProduct, this.file).subscribe((res: any) => {
-      console.log(res);
-      // this.getAllProduct();
-      // this.resetCreateProductForm();
+      window.location.reload();
     })
     this.resetCreateProductForm();
   }
@@ -78,7 +86,10 @@ export class ManagementProductComponent implements OnInit {
   }
 
   updateProduct = () => {
-
+    this.prodcutService.updateProduct(this.selectedProduct._id, this.selectedProduct).subscribe((res: any) => {
+      this.getAllProduct();
+      this.resetSelectedProduct();
+    })
   }
 
   resetSelectedProduct = () => {
@@ -87,15 +98,25 @@ export class ManagementProductComponent implements OnInit {
 
   deleteProduct(prodcut: any) {
     this.confirmationService.confirm({
-      message: 'Do you want to delete this record?',
-      header: 'Delete Confirmation',
-      icon: 'pi pi-info-circle',
+      message: 'Bạn có chắc muốn xóa sản phẩm này?',
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        // this.prodcutService.deleteProduct(id).subscribe((res: any) => {
-        //   this.getAllProduct();
-        // })
-        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+        this.prodcutService.deleteProduct(prodcut._id).subscribe((res: any) => {
+          this.getAllProduct();
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Xóa sản phẩm thành công' });
+        })
       },
+      reject: (type: any) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({ severity: 'error', summary: 'Thất bại', detail: 'Xóa sản phẩm thất bại' });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({ severity: 'warn', summary: 'Hủy', detail: 'Hủy xóa sản phẩm' });
+            break;
+        }
+      }
     });
   }
 

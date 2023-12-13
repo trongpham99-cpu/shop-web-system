@@ -57,12 +57,12 @@ export class ManagementUserComponent implements OnInit {
 
   resetSelectedUser = () => {
     this.selectedUser = null;
+    this.userDialogVisible = false;
   }
 
   updateUser = () => {
-    const { id, ...user } = this.selectedUser;
-    this.authService.updateUser(id, user).subscribe((res: any) => {
-      console.log(res);
+    const { _id, ...user } = this.selectedUser;
+    this.authService.updateUser(_id, user).subscribe((res: any) => {
       this.getAllUser();
     })
   }

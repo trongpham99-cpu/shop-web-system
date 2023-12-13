@@ -33,7 +33,6 @@
                             <td>{{user.createdAt}}</td>
                             <td>
                                 <button class="btn btn-primary" (click)="editUser(user._id, user)">Edit</button>
-                                <button class="btn btn-danger" (click)="deleteUser(user)">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -54,13 +53,6 @@
             <div class="form-group">
                 <label for="userAddress">Address:</label>
                 <textarea id="userAddress" class="form-control" [(ngModel)]="selectedUser.address"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="userRoles">Role:</label>
-                <select id="userRoles" class="form-control" [(ngModel)]="selectedUser.roles">
-                    <option *ngFor="let role of roles" [value]="role">{{role}}</option>
-                </select>
             </div>
 
             <div class="form-group">

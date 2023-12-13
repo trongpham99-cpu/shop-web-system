@@ -17,7 +17,13 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(cors())
+app.use(cors(
+    {
+        origin: '*',
+        methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+    }
+))
 
 //init db
 require('./dbs/init.mongo')

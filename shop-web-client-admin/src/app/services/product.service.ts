@@ -25,10 +25,6 @@ export class ProductService {
 
   createProduct(product: any, file: any) {
     let userLogin = localStorage.getItem('user_login') ? JSON.parse(localStorage.getItem('user_login') || '') : null;
-    // const headers = {
-    //   'Content-Type': 'application/json',
-    //   'Authorization': `${userLogin.accessToken}`
-    // }
 
     var header = {
       headers: new HttpHeaders().set('Authorization', `${userLogin.accessToken}`)
@@ -43,6 +39,19 @@ export class ProductService {
     formData.append('file', file);
 
     return this.http.post(`${SERVER_API}/product`, formData, header);
+  }
+
+  updateImageProduct = (id: any, file: any) => {
+    let userLogin = localStorage.getItem('user_login') ? JSON.parse(localStorage.getItem('user_login') || '') : null;
+
+    var header = {
+      headers: new HttpHeaders().set('Authorization', `${userLogin.accessToken}`)
+    };
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(`${SERVER_API}/product/${id}/image`, formData, header);
   }
 
   updateProduct(id: any, product: any) {

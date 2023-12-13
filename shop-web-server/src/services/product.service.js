@@ -3,6 +3,7 @@ const { BadRequestError } = require('../core/error.response');
 const { countFindAllProducts, findAllDraftsForShop, publishProductByShop, findAllPublishForShop, unpublishProductByShop, searchProductByUser, findAllProducts, findProduct, updateProductById, publishAllProductByShop } = require('../models/repository/product.repo');
 const { removeUndefinedObject, updateNestedObjectParser } = require('../utils');
 const { insertInventory } = require('../models/repository/inventory.repo');
+const { Types } = require('mongoose');
 class ProductFactory {
     static async createProduct(type, payload) {
         switch (type) {
@@ -40,6 +41,15 @@ class ProductFactory {
         return await unpublishProductByShop({ product_id, userId })
     }
 
+    static async uploadImage({ product_id, fileURL }) {
+        return await updateProductById({
+            product_id,
+            payload: { product_thumb: fileURL },
+            model: product,
+            isNew: true
+        });
+    }
+
     //QUERY// 
     static async findAllDraftsForShop({ userId, limit = 50, skip = 0 }) {
         const query = { userId, isDraft: true };
@@ -57,6 +67,14 @@ class ProductFactory {
 
     static async searchProducts({ keyword }) {
         return await searchProductByUser({ keyword });
+    }
+
+    static async deleteProduct({ product_id }) {
+        return await product.findOneAndDelete(
+            {
+                _id: new Types.ObjectId(product_id),
+            }
+        ).lean().exec();
     }
 
     static async findAllProducts({ limit = 50, sort = 'ctime', page = 1, filter = { isPublished: true }, keyword = null }) {
