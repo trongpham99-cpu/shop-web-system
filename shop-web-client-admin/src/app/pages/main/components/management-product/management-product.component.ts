@@ -17,6 +17,7 @@ export class ManagementProductComponent implements OnInit {
 
   visible = false;
   selectedProduct: any = {};
+  public file: any = null;
   ngOnInit(): void {
     this.getAllProduct();
   }
@@ -37,7 +38,7 @@ export class ManagementProductComponent implements OnInit {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
-      this.newProduct.product_image = file;
+      this.file = file;
     }
   }
 
@@ -46,7 +47,11 @@ export class ManagementProductComponent implements OnInit {
     // You can send the image file (this.newProduct.product_image) along with other product details
     // Make an API call or perform other actions
     // Reset the form and close the dialog after successful creation
-    console.log(this.newProduct);
+    this.prodcutService.createProduct(this.newProduct, this.file).subscribe((res: any) => {
+      console.log(res);
+      // this.getAllProduct();
+      // this.resetCreateProductForm();
+    })
     this.resetCreateProductForm();
   }
 

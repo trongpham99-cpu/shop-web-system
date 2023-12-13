@@ -3,23 +3,44 @@ const { SuccessResponse } = require('../core/success.response')
 
 class ProductController {
     createProduct = async (req, res, next) => {
+        const file = req.file
+        const fileURL = `http://localhost:${process.env.PORT}/public/images/${file.filename}`
+
+        const requestPayload = {
+            ...req.body,
+            userId: req.user._id,
+            product_thumb: fileURL,
+            product_attributes: {
+                "brand": "Levis",
+                "size": "M",
+                "material": "Denim",
+                "color": "yellow-black"
+            }
+        }
+
         new SuccessResponse({
             message: 'Create Product Success',
-            metadata: await ProductService.createProduct(req.body.product_type, {
-                ...req.body,
-                userId: req.user._id
-            })
+            metadata: await ProductService.createProduct(req.body.product_type, requestPayload)
         }).send(res)
     }
 
     //PUT//
     updateProduct = async (req, res, next) => {
+        const file = req.file
+        const fileURL = `http://localhost:${process.env.PORT}/public/images/${file.filename}`
+
+        const requestPayload = {
+            ...req.body,
+            userId: req.user._id,
+        }
+
+        if (file) {
+            requestPayload.product_thumb = fileURL
+        }
+
         new SuccessResponse({
             message: 'Update Product Success',
-            metadata: await ProductService.updateProduct(req.body.product_type, req.params.id, {
-                ...req.body,
-                userId: req.user._id
-            })
+            metadata: await ProductService.updateProduct(req.body.product_type, req.params.id, requestPayload)
         }).send(res)
     }
 

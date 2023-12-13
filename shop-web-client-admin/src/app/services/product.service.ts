@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SERVER_API } from '../configs';
 
 @Injectable({
@@ -23,14 +23,26 @@ export class ProductService {
     return this.http.get(`${SERVER_API}/product/search`, { params });
   }
 
-  createProduct(product: any) {
+  createProduct(product: any, file: any) {
     let userLogin = localStorage.getItem('user_login') ? JSON.parse(localStorage.getItem('user_login') || '') : null;
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `${userLogin.accessToken}`
-    }
+    // const headers = {
+    //   'Content-Type': 'application/json',
+    //   'Authorization': `${userLogin.accessToken}`
+    // }
 
-    return this.http.post(`${SERVER_API}/product`, product, { headers });
+    var header = {
+      headers: new HttpHeaders().set('Authorization', `${userLogin.accessToken}`)
+    };
+
+    const formData = new FormData();
+    formData.append('product_name', product.product_name);
+    formData.append('product_price', product.product_price);
+    formData.append('product_description', product.product_description);
+    formData.append('product_type', 'clothing');
+    formData.append('product_quantity', '5');
+    formData.append('file', file);
+
+    return this.http.post(`${SERVER_API}/product`, formData, header);
   }
 
   updateProduct(id: any, product: any) {

@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
-
+  logout() {
+    localStorage.removeItem('user_login');
+    window.location.href = '/login';
+  }
 }
