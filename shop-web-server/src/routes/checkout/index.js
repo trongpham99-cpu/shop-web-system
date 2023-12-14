@@ -11,5 +11,6 @@ router.post('', asyncHandler(checkoutController.checkout))
 router.get('', asyncHandler(checkoutController.myOrder))
 router.get('/orders', asyncHandler(checkoutController.getOrders))
 router.get('/:orderId', asyncHandler(checkoutController.getDetailOrder))
+router.put('/:orders/:id', asyncHandler(checkoutController.updateOrder))
 
 module.exports = router

@@ -62,7 +62,7 @@ export class ProductService {
       'Authorization': `${userLogin.accessToken}`
     }
 
-    return this.http.put(`${SERVER_API}/product/${id}`, product, { headers });
+    return this.http.patch(`${SERVER_API}/product/${id}`, product, { headers });
   }
 
   deleteProduct(id: any) {

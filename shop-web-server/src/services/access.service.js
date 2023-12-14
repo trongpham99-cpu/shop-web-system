@@ -8,44 +8,6 @@ const { findByEmail } = require('./user.service')
 
 class AccessService {
 
-    // static handlerRefreshToken = async (refreshToken) => {
-    //     const foundToken = await KeyTokenService.findByRefreshTokenUsed(refreshToken)
-    //     if (!foundToken) {
-    //         const { userId, email } = await verifyJWT(refreshToken, foundToken)
-
-    //         await KeyTokenService.deleteByID(userId)
-    //         throw new BadRequestError('Error: Refresh token is invalid !')
-    //     }
-
-    //     const holderToken = await KeyTokenService.findByRefreshToken(refreshToken)
-    //     if (!holderToken) throw new BadRequestError('Error: Refresh token is invalid !')
-
-    //     const { userId, email } = await verifyJWT(refreshToken, holderToken.privateKey)
-    //     const foundShop = await findByEmail({ email })
-    //     if (!foundShop) throw new BadRequestError('Error: Shop not found !')
-
-    //     const tokens = await createTokenPair({ userId, email }, holderToken.publicKey, holderToken.privateKey)
-
-    //     await holderToken.updateOne({
-    //         $set: {
-    //             refreshToken: tokens.refreshToken,
-    //         },
-    //         $addToSet: {
-    //             refreshTokenUsed: refreshToken
-    //         }
-    //     })
-
-    //     return {
-    //         user: { userId, email },
-    //         tokens
-    //     }
-    // }
-
-    // static logout = async (keyStore) => {
-    //     const delKey = await KeyTokenService.deleteKeyToken(keyStore._id)
-    //     return delKey
-    // }
-
     static login = async ({ email, password }) => {
         const foundUser = await findByEmail({ email })
         if (!foundUser) {

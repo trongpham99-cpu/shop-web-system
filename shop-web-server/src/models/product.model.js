@@ -18,8 +18,6 @@ const productSchema = new Schema({
     },
     product_category: {
         type: String,
-        enum: ['clothing', 'electronic'],
-        required: true
     },
     product_price: {
         type: Number,
@@ -59,13 +57,13 @@ const productSchema = new Schema({
     },
     isDraft: {
         type: Boolean,
-        default: true,
+        default: false,
         index: true,
         select: false
     },
     isPublished: {
         type: Boolean,
-        default: false,
+        default: true,
         index: false,
         select: false
     },

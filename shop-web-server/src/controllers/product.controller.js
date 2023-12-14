@@ -10,6 +10,7 @@ class ProductController {
             ...req.body,
             userId: req.user._id,
             product_thumb: resFileURL.url,
+            product_category: req.body.product_category,
             product_attributes: {
                 "brand": "Levis",
                 "size": "M",
@@ -26,22 +27,27 @@ class ProductController {
 
     //PUT//
     updateProduct = async (req, res, next) => {
-        const file = req.file
-        const resFileURL = await uploadSingleImage(file.filename)
-        const fileURL = resFileURL.url
-
         const requestPayload = {
             ...req.body,
             userId: req.user._id,
+            product_category: req.body.product_category,
+            product_attributes: {
+                "brand": "Levis",
+                "size": "M",
+                "material": "Denim",
+                "color": "yellow-black"
+            }
         }
 
-        if (file) {
-            requestPayload.product_thumb = fileURL
-        }
+        req.body.product_type = req.body.product_type || 'clothing'
 
         new SuccessResponse({
             message: 'Update Product Success',
-            metadata: await ProductService.updateProduct(req.body.product_type, req.params.id, requestPayload)
+            metadata: await ProductService.updateProduct({
+                type: req.body.product_type,
+                productId: req.params.id,
+                payload: requestPayload
+            })
         }).send(res)
     }
 
@@ -76,14 +82,15 @@ class ProductController {
 
     uploadImage = async (req, res, next) => {
         const file = req.file
-        const fileURL = `http://localhost:${process.env.PORT}/public/images/${file.filename}`
-
+        const resFileURL = await uploadSingleImage(file.filename)
+        const fileURL = resFileURL.url
+        console.log(fileURL)
         new SuccessResponse({
             message: 'Upload Image Success',
             metadata: await ProductService.uploadImage({
                 product_id: req.params.id,
                 userId: req.user._id,
-                product_thumb: fileURL
+                fileURL: fileURL
             })
         }).send(res)
     }
@@ -145,7 +152,8 @@ class ProductController {
                 sort: req.query.sort,
                 page: req.query.page,
                 filter: req.query.filter,
-                keyword: req.query.keyword
+                keyword: req.query.keyword,
+                category: req.query.category
             })
         }).send(res)
     }

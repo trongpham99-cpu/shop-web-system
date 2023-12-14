@@ -19,6 +19,7 @@ class ProductFactory {
     //PUT//
 
     static async updateProduct({ type, productId, payload }) {
+        console.log({ type, productId, payload })
         switch (type) {
             case 'clothing':
                 return await new Clothing(payload).updateProduct(productId);
@@ -77,8 +78,8 @@ class ProductFactory {
         ).lean().exec();
     }
 
-    static async findAllProducts({ limit = 50, sort = 'ctime', page = 1, filter = { isPublished: true }, keyword = null }) {
-        let products = await findAllProducts({ limit, sort, page, keyword, filter, select: ['product_name', 'product_price', 'product_thumb'] });
+    static async findAllProducts({ limit = 50, sort = 'ctime', page = 1, filter = { isPublished: true }, keyword = null, category = null }) {
+        let products = await findAllProducts({ limit, sort, page, keyword, filter, select: ['product_name', 'product_price', 'product_thumb'], category });
         let count = await countFindAllProducts({ filter });
         return {
             products,
@@ -102,7 +103,8 @@ class Product {
             product_quantity,
             product_type,
             userId,
-            product_attributes
+            product_attributes,
+            product_category
         }
     ) {
         this.product_name = product_name;
@@ -113,6 +115,7 @@ class Product {
         this.product_type = product_type;
         this.userId = userId;
         this.product_attributes = product_attributes;
+        this.product_category = product_category;
     }
 
     async createProduct(product_id) {

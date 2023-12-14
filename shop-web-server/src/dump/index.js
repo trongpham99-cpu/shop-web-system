@@ -1,5 +1,5 @@
 const fetchDate = async () => {
-    let res = await fetch('https://tiki.vn/api/personalish/v1/blocks/listings?limit=200&include=advertisement&aggregations=2&version=home-persionalized&trackity_id=631482cc-a0e9-a691-712b-8d5efb3daa8b&category=2150&page=1&urlKey=noi-that')
+    let res = await fetch('https://tiki.vn/api/personalish/v1/blocks/listings?limit=50&include=advertisement&aggregations=2&version=home-persionalized&trackity_id=631482cc-a0e9-a691-712b-8d5efb3daa8b&category=2150&page=1&urlKey=noi-that')
     let resp = await res.json()
     let data = resp.data
     return data
@@ -21,7 +21,7 @@ const postDate = async () => {
     //         "color": "yellow-black"
     //     }
     // }
-    data.map(async (item) => {
+    data.map(async (item, index) => {
         const p = {
             product_name: item.name,
             product_thumb: item.thumbnail_url,
@@ -29,6 +29,7 @@ const postDate = async () => {
             product_price: item.price,
             product_quantity: 1,
             product_type: "clothing",
+            product_category: index % 2 === 0 ? "classic" : "luxury",
             product_attributes: {
                 "brand": "Levis",
                 "size": "M",
@@ -42,7 +43,7 @@ const postDate = async () => {
             body: JSON.stringify(p),
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTczMTUwNDkyY2JlYTVmMGQyNDNmYWQiLCJpYXQiOjE3MDIwNDIzMzMsImV4cCI6MTcwMjIxNTEzM30.qHwI_VELuXAVYA9SPYWVPAcjYQp2ZRrpdGVjra_PpRM'
+                'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTczMWEyMTMxNmRiYjAzZDY5NGNmZjEiLCJpYXQiOjE3MDI1NjE2NDgsImV4cCI6MTcwMjczNDQ0OH0.3LJOLHc021MlTTcUmlDh-oKfndq0mYUeWEyf69GWRLI'
             },
         })
 

@@ -75,6 +75,14 @@
         </div>
 
         <div class="form-group">
+            <label for="productCategory">Category:</label>
+            <select id="productCategory" class="form-control" [(ngModel)]="selectedProduct.product_category">
+                <option value="classic">Classic</option>
+                <option value="luxury">Luxury</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="createdAt">Created At:</label>
             <input type="text" id="createdAt" class="form-control" [(ngModel)]="selectedProduct.createdAt" disabled>
         </div>
@@ -87,7 +95,7 @@
         <!-- upload image -->
         <div class="form-group">
             <label for="productImage">Image:</label>
-            <input type="file" id="productImage" class="form-control" (change)="handleImageChange($event)">
+            <input type="file" id="productImage" class="form-control" (change)="handleUpdateImageChange(selectedProduct._id, $event)">
         </div>
 
         <div class="text-right">
@@ -114,6 +122,14 @@
             <label for="createProductDescription">Description:</label>
             <textarea id="createProductDescription" class="form-control"
                 [(ngModel)]="newProduct.product_description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="createProductCategory">Category:</label>
+            <select id="createProductCategory" class="form-control" [(ngModel)]="newProduct.product_category">
+                <option value="classic">Classic</option>
+                <option value="luxury">Luxury</option>
+            </select>
         </div>
 
         <div class="form-group">

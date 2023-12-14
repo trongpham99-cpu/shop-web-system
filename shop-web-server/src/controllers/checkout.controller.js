@@ -39,6 +39,13 @@ class checkoutController {
             })
         }).send(res)
     }
+
+    updateOrder = async (req, res, next) => {
+        new SuccessResponse({
+            message: 'Update order success',
+            metadata: await CheckoutService.updateOrder(req.params.id, req.body)
+        }).send(res)
+    }
 }
 
 module.exports = new checkoutController()

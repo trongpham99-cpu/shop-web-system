@@ -44,10 +44,12 @@ export class ManagementProductComponent implements OnInit {
 
   handleUpdateImageChange(id: any, event: any) {
     const fileList: FileList = event.target.files;
+    console.log(fileList);
     if (fileList.length > 0) {
       const file: File = fileList[0];
       this.prodcutService.updateImageProduct(id, file).subscribe((res: any) => {
-        console.log(res);
+        this.getAllProduct();
+        this.resetSelectedProduct();
       })
     }
   }
@@ -94,6 +96,7 @@ export class ManagementProductComponent implements OnInit {
 
   resetSelectedProduct = () => {
     this.selectedProduct = null;
+    this.visible = false;
   }
 
   deleteProduct(prodcut: any) {

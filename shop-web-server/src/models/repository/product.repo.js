@@ -5,10 +5,16 @@ const findAllDraftsForShop = async ({ query, limit, skip }) => {
     return await queryProduct({ query, limit, skip });
 }
 
-const findAllProducts = async ({ limit, keyword, sort, page, filter, select }) => {
+const findAllProducts = async ({ limit, keyword, sort, page, filter, select, category }) => {
+    
     filter = {
         ...filter,
     }
+
+    if (category) {
+        filter.product_category = category;
+    }
+
     if (keyword) {
         const regexSearch = new RegExp(keyword);
         filter = {

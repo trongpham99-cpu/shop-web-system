@@ -214,6 +214,12 @@ class CheckoutService {
         const res = await order.create(newOrder);
         return res;
     }
+
+    static async updateOrder(id, { order_status }) {
+        console.log(`order_status`, order_status)
+        const res = await order.findByIdAndUpdate(id, { order_status: order_status }, { new: true });
+        return res;
+    }
 }
 
 module.exports = CheckoutService;

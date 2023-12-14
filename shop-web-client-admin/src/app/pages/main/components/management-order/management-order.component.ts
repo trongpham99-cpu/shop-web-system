@@ -56,8 +56,8 @@ export class ManagementOrderComponent implements OnInit {
     this.orderDialogVisible = false;
   }
 
-  updateOrderStatus = (id: any, status: any) => {
-    this.orderService.updateOrderStatus(id, status).subscribe((res: any) => {
+  updateOrder = (id: any, order: any) => {
+    this.orderService.updateOrder(id, order).subscribe((res: any) => {
       console.log(res);
       this.getAllOrder();
     })

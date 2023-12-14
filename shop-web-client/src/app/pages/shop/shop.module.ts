@@ -6,6 +6,7 @@ import { MainShopComponent } from './components/main-shop/main-shop.component';
 import { ToastModule } from 'primeng/toast';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
+import { TagModule } from 'primeng/tag';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { InputTextModule } from 'primeng/inputtext';
     ShopRoutingModule,
     ToastModule,
     PaginatorModule,
-    InputTextModule
+    InputTextModule,
+    TagModule
   ],
 })
 export class ShopModule { }
