@@ -20,6 +20,8 @@ const findAllProducts = async ({ limit, keyword, sort, page, filter, select }) =
     }
 
     const products = await product.find(filter)
+        .skip((page - 1) * limit)
+        .limit(limit)
         .sort({ createdAt: -1 })
         .select(getSelectData(select))
         .lean()

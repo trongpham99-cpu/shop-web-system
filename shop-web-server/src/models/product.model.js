@@ -16,6 +16,11 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
+    product_category: {
+        type: String,
+        enum: ['clothing', 'electronic'],
+        required: true
+    },
     product_price: {
         type: Number,
         required: true
