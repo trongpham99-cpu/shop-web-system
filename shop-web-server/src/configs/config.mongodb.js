@@ -5,7 +5,6 @@ const dev = {
     db: {
         mongodb: {
             host: process.env.DEV_DB_HOST,
-            port: process.env.DEV_DB_PORT,
             name: process.env.DEV_DB_NAME,
         }
     }
@@ -18,7 +17,6 @@ const prod = {
     db: {
         mongodb: {
             host: process.env.PROD_DB_HOST,
-            port: process.env.PROD_DB_PORT,
             name: process.env.PROD_DB_NAME
         }
     }
