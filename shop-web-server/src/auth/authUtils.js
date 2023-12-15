@@ -6,11 +6,11 @@ const { findUserById } = require('../services/user.service')
 
 const createTokenPair = async (payload) => {
     try {
-        const accessToken = await JWT.sign(payload, process.env.SECRET_KEY, {
+        const accessToken = await JWT.sign(payload, "my-secret-key", {
             expiresIn: '2 days'
         })
 
-        const refreshToken = await JWT.sign(payload, process.env.SECRET_KEY, {
+        const refreshToken = await JWT.sign(payload, "my-secret-key", {
             expiresIn: '30 days'
         })
 
@@ -28,7 +28,7 @@ const authentication = asyncHandler(async (req, res, next) => {
     const accessToken = req.headers[HEADER.AUTHORIZATION]
     if (!accessToken) throw new BadRequestError('Error: Access Token is required !')
     try {
-        const decodeUser = await JWT.verify(accessToken, process.env.SECRET_KEY)
+        const decodeUser = await JWT.verify(accessToken, "my-secret-key")
         const { userId } = decodeUser
         const userDetail = await findUserById({ userId })
         if (!userDetail) throw new NotFoundError('Error: User not found !')

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { countConnect } = require('../helpers/check.connect')
 const { db: { mongodb: { host, name } } } = require('../configs/config.mongodb')
 
-const CONNECTION_STRING = `${host}/${name}`
+const CONNECTION_STRING = `mongodb+srv://admin:admin@clusterductrong.9p6xigl.mongodb.net/shop-app`
 console.log(CONNECTION_STRING)
 
 class Database {
