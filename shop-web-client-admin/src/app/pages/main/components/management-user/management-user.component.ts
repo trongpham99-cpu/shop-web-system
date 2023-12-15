@@ -45,7 +45,6 @@ export class ManagementUserComponent implements OnInit {
 
   deleteUser = (id: number) => {
     this.authService.deleteUser(id).subscribe((res: any) => {
-      console.log(res);
       this.getAllUser();
     })
   }
